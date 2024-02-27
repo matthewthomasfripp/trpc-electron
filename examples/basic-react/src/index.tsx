@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDom from 'react-dom';
-import { ipcLink } from 'electron-trpc/renderer';
+import { ipcLink } from 'trpc-electron/renderer';
 import { createTRPCReact } from '@trpc/react-query';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppRouter } from '../electron/api';
@@ -27,7 +27,7 @@ function App() {
 function HelloElectron() {
   const { data } = trpcReact.greeting.useQuery({ name: 'Electron' });
   trpcReact.subscription.useSubscription(undefined, {
-    onData: (data) => {
+    onData: data => {
       console.log(data);
     },
   });

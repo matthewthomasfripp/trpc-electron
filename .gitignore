@@ -3,8 +3,8 @@ dist/
 dist-electron/
 docs/.vitepress/cache/
 coverage/
-packages/electron-trpc/renderer.d.ts
-packages/electron-trpc/main.d.ts
+packages/trpc-electron/renderer.d.ts
+packages/trpc-electron/main.d.ts
 
 .yarn/*
 !.yarn/cache

@@ -1,7 +1,7 @@
 {
-  "name": "electron-trpc",
+  "name": "trpc-electron",
   "description": "Electron support for tRPC",
-  "version": "0.5.2",
+  "version": "0.1.0",
   "exports": {
     "./main": {
       "require": "./dist/main.cjs",
@@ -14,7 +14,7 @@
       "types": "./dist/renderer.d.ts"
     }
   },
-  "author": "Jason Nall <jsonnull@gmail.com>",
+  "author": "Mat Sz <contact@matsz.dev>",
   "license": "MIT",
   "files": [
     "dist",

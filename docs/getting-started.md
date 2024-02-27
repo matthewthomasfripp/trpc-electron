@@ -7,37 +7,37 @@ Follow installation instructions for [trpc](https://trpc.io/docs/quickstart#inst
 #### pnpm
 
 ```sh
-pnpm add electron-trpc
+pnpm add trpc-electron
 ```
 
 #### yarn
 
 ```sh
-yarn add electron-trpc
+yarn add trpc-electron
 ```
 
 #### npm
 
 ```sh
-npm install --save electron-trpc
+npm install --save trpc-electron
 ```
 
 ## TypeScript
 
-It's worth noting that you'll need to figure out how to get TypeScript working on both the main process and render process client code. For one example of how to do this with a good developer experience (minimal configuration, fast bundling, client hot-reloading) see our [basic example](https://github.com/jsonnull/electron-trpc/tree/main/examples/basic).
+It's worth noting that you'll need to figure out how to get TypeScript working on both the main process and render process client code. For one example of how to do this with a good developer experience (minimal configuration, fast bundling, client hot-reloading) see our [basic example](https://github.com/mat-sz/trpc-electron/tree/main/examples/basic).
 
 ## Preload
 
-`electron-trpc` depends on Electron's [Context Isolation](https://www.electronjs.org/docs/latest/tutorial/context-isolation) feature, and exposes the electron-trpc IPC channel to render processes using a [preload file](https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts).
+`trpc-electron` depends on Electron's [Context Isolation](https://www.electronjs.org/docs/latest/tutorial/context-isolation) feature, and exposes the trpc-electron IPC channel to render processes using a [preload file](https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts).
 
 Some familiarization with these concepts can be helpful in case of unexpected issues during setup.
 
-This is the most minimal working preload file for using `electron-trpc`. Depending on your application, you may need to add this to an existing preload file or customize it later.
+This is the most minimal working preload file for using `trpc-electron`. Depending on your application, you may need to add this to an existing preload file or customize it later.
 
 ::: code-group
 
 ```ts [preload.ts]
-import { exposeElectronTRPC } from 'electron-trpc/main';
+import { exposeElectronTRPC } from 'trpc-electron/main';
 
 process.once('loaded', async () => {
   exposeElectronTRPC();
@@ -54,7 +54,7 @@ In the main electron process, you will want to expose a tRPC router to one or mo
 
 ```ts{7-10,13} [main.ts]
 import { app } from 'electron';
-import { createIPCHandler } from 'electron-trpc/main';
+import { createIPCHandler } from 'trpc-electron/main';
 import { router } from './api';
 
 app.on('ready', () => {
@@ -78,10 +78,10 @@ Windows you construct with the preload file and the IPC handler can reach the tR
 ::: code-group
 
 ```ts [renderer.ts]
-import { createTRPCProxyClient } from '@trpc/client';
-import { ipcLink } from 'electron-trpc/renderer';
+import { createTRPCClient } from '@trpc/client';
+import { ipcLink } from 'trpc-electron/renderer';
 
-export const client = createTRPCProxyClient({
+export const client = createTRPCClient({
   links: [ipcLink()],
 });
 ```

@@ -16,7 +16,7 @@ import {
 import type { RendererGlobalElectronTRPC } from '../types';
 import { transformResult } from './utils';
 
-const log = debug('electron-trpc:renderer:ipcLink');
+const log = debug('trpc-electron:renderer:ipcLink');
 
 type IPCCallbackResult<TRouter extends AnyTRPCRouter = AnyTRPCRouter> =
   TRPCResponseMessage<unknown, inferRouterContext<TRouter>>;
