@@ -13,7 +13,8 @@
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "skipLibCheck": true
   },
   "include": ["src/main/*.ts", "src/renderer/*.ts"],
   "exclude": ["node_modules"]

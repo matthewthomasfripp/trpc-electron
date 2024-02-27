@@ -1,20 +1,24 @@
 {
+  "name": "trpc-electron",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "license": "MIT",
   "scripts": {
-    "build": "corepack pnpm -r build",
-    "test": "corepack pnpm -r test",
+    "build": "yarn workspaces foreach -Apt run build",
+    "test": "yarn workspaces foreach -Api run test",
     "test:e2e": "playwright test",
-    "test:ci": "corepack pnpm -r test:ci",
+    "test:ci": "yarn workspaces foreach -Ap run test:ci",
     "lint": "prettier --check .",
-    "prepublishOnly": "corepack pnpm build",
+    "prepublishOnly": "yarn build",
     "changeset": "changeset",
-    "changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
+    "changeset:version": "changeset version && yarn install",
     "release": "changeset publish",
     "docs:start": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
-  "packageManager": "pnpm@8.6.11",
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
@@ -27,12 +31,7 @@
     "vue": "^3.3.4"
   },
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=8"
+    "node": ">=18"
   },
-  "pnpm": {
-    "requiredScripts": [
-      "build"
-    ]
-  }
+  "packageManager": "yarn@4.1.0"
 }

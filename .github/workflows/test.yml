@@ -7,42 +7,36 @@ env:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node: ['18.x']
-        os: [ubuntu-latest]
+        node-version: [20.x]
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: pnpm test:ci
+          node-version: ${{ matrix.node-version }}
+      - run: corepack yarn install
+      - run: corepack yarn build
+      - run: corepack yarn test:ci
       - uses: codecov/codecov-action@v3
 
   test-e2e:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node: ['18.x']
-        os: [ubuntu-latest]
+        node-version: [20.x]
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: xvfb-run --auto-servernum -- pnpm test:e2e
+          node-version: ${{ matrix.node-version }}
+      - run: corepack yarn install
+      - run: corepack yarn build
+      - run: xvfb-run --auto-servernum -- corepack yarn test:e2e

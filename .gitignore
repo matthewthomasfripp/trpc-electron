@@ -5,3 +5,11 @@ docs/.vitepress/cache/
 coverage/
 packages/electron-trpc/renderer.d.ts
 packages/electron-trpc/main.d.ts
+
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
