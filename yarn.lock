@@ -1268,19 +1268,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trpc/client@npm:10.33.1":
-  version: 10.33.1
-  resolution: "@trpc/client@npm:10.33.1"
+"@trpc/client@npm:^11.0.0-next-beta.294":
+  version: 11.0.0-next-beta.294
+  resolution: "@trpc/client@npm:11.0.0-next-beta.294"
   peerDependencies:
-    "@trpc/server": 10.33.1
-  checksum: 10c0/c2984040bdc392d1d1e40092cccd65672c6eaae28ff37c4dcc9a34d1e17ff903c9ddb9693a4a1e98cbb2b1ec05b055e8285a375d22f2b053cf5c327d5f79b2d0
+    "@trpc/server": 11.0.0-next-beta.294+1e32ff91b
+  checksum: 10c0/4aa833fe419e9c476485f4b7b668b56be1037ec4d1c85c80ae6f740ef0d02aac45e728f984bb1cc81248d5071e0f9b08e58560683013ff5d7814f3e201c236e5
   languageName: node
   linkType: hard
 
-"@trpc/server@npm:10.33.1":
-  version: 10.33.1
-  resolution: "@trpc/server@npm:10.33.1"
-  checksum: 10c0/051b26f0bdb7254f71998ba873310c6e3f10322d54d6bec3c14c6604dc778027f9ac9c49695d2708e037ba7fbe0588c5b8245b1ebc8f2ab3625f44d9be1588a3
+"@trpc/server@npm:^11.0.0-next-beta.294":
+  version: 11.0.0-next-beta.294
+  resolution: "@trpc/server@npm:11.0.0-next-beta.294"
+  checksum: 10c0/35a29e7eceaf74a1d86b753ea3e8eb7edcfc0f0c256c3eb4bf52ba08b67c4ebf9534ae7763b4a3c6368e0806fbdad004be8bc0204ca0a375a4e55eb6f976378a
   languageName: node
   linkType: hard
 
@@ -2766,8 +2766,8 @@ __metadata:
   resolution: "electron-trpc@workspace:packages/electron-trpc"
   dependencies:
     "@tanstack/react-query": "npm:^4.29.14"
-    "@trpc/client": "npm:10.33.1"
-    "@trpc/server": "npm:10.33.1"
+    "@trpc/client": "npm:^11.0.0-next-beta.294"
+    "@trpc/server": "npm:^11.0.0-next-beta.294"
     "@types/debug": "npm:^4.1.8"
     "@types/node": "npm:^20.3.1"
     "@vitest/coverage-v8": "npm:^0.34.0"
@@ -2783,8 +2783,8 @@ __metadata:
     vitest: "npm:^0.34.0"
     zod: "npm:^3.21.4"
   peerDependencies:
-    "@trpc/client": ">10.0.0"
-    "@trpc/server": ">10.0.0"
+    "@trpc/client": ">=11.0.0"
+    "@trpc/server": ">=11.0.0"
     electron: ">19.0.0"
   languageName: unknown
   linkType: soft
