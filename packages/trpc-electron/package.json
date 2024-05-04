@@ -1,7 +1,7 @@
 {
   "name": "trpc-electron",
   "description": "Electron support for tRPC",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "exports": {
     "./main": {
       "require": "./dist/main.cjs",
@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@tanstack/react-query": "^4.29.14",
-    "@trpc/client": "^11.0.0-next-beta.294",
-    "@trpc/server": "^11.0.0-next-beta.294",
+    "@trpc/client": "next",
+    "@trpc/server": "next",
     "@types/node": "^20.3.1",
     "@vitest/coverage-v8": "^0.34.0",
     "builtin-modules": "^3.3.0",
