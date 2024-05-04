@@ -25,7 +25,7 @@ const router = t.router({
         str: z.string(),
         date: z.date(),
         bigint: z.bigint().optional(),
-      })
+      }),
     )
     .query(input => {
       return input;

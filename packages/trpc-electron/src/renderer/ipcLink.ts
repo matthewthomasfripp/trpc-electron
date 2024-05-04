@@ -7,16 +7,12 @@ import type {
 } from '@trpc/server';
 import type { TRPCResponseMessage } from '@trpc/server/rpc';
 import { observable, Observer } from '@trpc/server/observable';
-import debug from 'debug';
 import {
-  TransformerOptions,
+  type TransformerOptions,
   getTransformer,
 } from '@trpc/client/unstable-internals';
-
 import type { RendererGlobalElectronTRPC } from '../types';
 import { transformResult } from './utils';
-
-const log = debug('trpc-electron:renderer:ipcLink');
 
 type IPCCallbackResult<TRouter extends AnyTRPCRouter = AnyTRPCRouter> =
   TRPCResponseMessage<unknown, inferRouterContext<TRouter>>;
@@ -56,7 +52,6 @@ class IPCClient {
   }
 
   #handleResponse(response: TRPCResponseMessage) {
-    log('handling response', response);
     const request = response.id && this.#pendingRequests.get(response.id);
     if (!request) {
       return;
@@ -104,31 +99,21 @@ export type IPCLinkOptions<TRouter extends AnyTRPCRouter> = TransformerOptions<
 export function ipcLink<TRouter extends AnyTRPCRouter>(
   opts?: IPCLinkOptions<TRouter>
 ): TRPCLink<TRouter> {
-  const transformer = getTransformer(opts?.transformer);
-
   return () => {
     const client = new IPCClient();
+    const transformer = getTransformer(opts?.transformer);
 
     return ({ op }) => {
       return observable(observer => {
         op.input = transformer.input.serialize(op.input);
 
-        let isDone = false;
         const unsubscribe = client.request(op, {
           error(err) {
-            isDone = true;
             observer.error(err as TRPCClientError<any>);
             unsubscribe();
           },
           complete() {
-            if (!isDone) {
-              isDone = true;
-              observer.error(
-                TRPCClientError.from(new Error('Operation ended prematurely'))
-              );
-            } else {
-              observer.complete();
-            }
+            observer.complete();
           },
           next(response) {
             const transformed = transformResult(response, transformer.output);
@@ -141,7 +126,6 @@ export function ipcLink<TRouter extends AnyTRPCRouter>(
             observer.next({ result: transformed.result });
 
             if (op.type !== 'subscription') {
-              isDone = true;
               unsubscribe();
               observer.complete();
             }
@@ -149,7 +133,6 @@ export function ipcLink<TRouter extends AnyTRPCRouter>(
         });
 
         return () => {
-          isDone = true;
           unsubscribe();
         };
       });

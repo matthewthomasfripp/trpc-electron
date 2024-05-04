@@ -54,21 +54,36 @@ class IPCHandler<TRouter extends AnyTRPCRouter> {
     }
 
     this.#windows.push(win);
-    this.#attachSubscriptionCleanupHandler(win);
+    this.#attachSubscriptionCleanupHandlers(win);
   }
 
   detachWindow(win: BrowserWindow) {
     this.#windows = this.#windows.filter(w => w !== win);
+    this.#cleanUpSubscriptions({ webContentsId: win.webContents.id });
+  }
 
+  #cleanUpSubscriptions({
+    webContentsId,
+    frameRoutingId,
+  }: {
+    webContentsId: number;
+    frameRoutingId?: number;
+  }) {
     for (const [key, sub] of this.#subscriptions.entries()) {
-      if (key.startsWith(`${win.webContents.id}-`)) {
+      if (key.startsWith(`${webContentsId}-${frameRoutingId ?? ''}`)) {
         sub.unsubscribe();
         this.#subscriptions.delete(key);
       }
     }
   }
 
-  #attachSubscriptionCleanupHandler(win: BrowserWindow) {
+  #attachSubscriptionCleanupHandlers(win: BrowserWindow) {
+    win.webContents.on('did-start-navigation', ({ frame }) => {
+      this.#cleanUpSubscriptions({
+        webContentsId: win.webContents.id,
+        frameRoutingId: frame.routingId,
+      });
+    });
     win.webContents.on('destroyed', () => {
       this.detachWindow(win);
     });
